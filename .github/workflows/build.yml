@@ -151,3 +151,14 @@ jobs:
     
     - name: Run tests
       run: ctest --test-dir build --output-on-failure
+
+    - name: Create package
+      run: cmake --build build --target package --config Release
+
+    - name: Upload package
+      uses: actions/upload-artifact@v4
+      with:
+        name: element-${{ matrix.os }}
+        path: |
+          build/element-*.zip
+          build/element-*.deb
